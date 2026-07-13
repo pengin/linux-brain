@@ -150,3 +150,13 @@
 		<6 0 KEY_LEFTALT>,    /* Switch characters */
 		<6 6 KEY_BACKSPACE>;  /* Backspace */
 };
+
+&usb0 {
+	/*
+	 * The common dtsi pins this port to host mode, which leaves no
+	 * UDC for USB gadgets. Dual-role keeps host mode reachable via
+	 * an OTG adapter (ID pin is wired: usb0_id_pins_a) while letting
+	 * the NCM ethernet gadget bind when connected to a PC.
+	 */
+	dr_mode = "otg";
+};
