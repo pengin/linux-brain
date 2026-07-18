@@ -154,9 +154,17 @@
 &usb0 {
 	/*
 	 * The common dtsi pins this port to host mode, which leaves no
-	 * UDC for USB gadgets. Dual-role keeps host mode reachable via
-	 * an OTG adapter (ID pin is wired: usb0_id_pins_a) while letting
-	 * the NCM ethernet gadget bind when connected to a PC.
+	 * UDC for USB gadgets. Use dual-role so both the NCM ethernet
+	 * gadget (device role, SSH to 192.168.28.2) and hub/keyboard/
+	 * WLAN/ethernet (host role) are reachable.
+	 *
+	 * i.MX28's ci_hdrc has no usbmisc IP, so the ID pin cannot drive
+	 * automatic host/device switching (usbmisc_imx has no imx28
+	 * entry). The role is therefore selected explicitly in software
+	 * via the usb-role-switch class (/sys/class/usb_role, driven by
+	 * /usr/sbin/brainwrt-usb-mode) rather than by plugging in an OTG
+	 * adapter.
 	 */
 	dr_mode = "otg";
+	usb-role-switch;
 };
