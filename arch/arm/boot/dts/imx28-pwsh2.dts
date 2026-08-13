@@ -115,3 +115,14 @@
 		/* <0x0c KEY_PAGEDOWN>, */ /* Page Down */
 		<0x06 KEY_LEFTALT>;  /* Switch characters */
 };
+
+&usb0 {
+	/*
+	 * Same as PW-SH3/SH4: the common dtsi pins this port to host mode, and
+	 * i.MX28's ci_hdrc cannot switch roles from the ID pin, so the role is
+	 * selected in software via /sys/class/usb_role. See imx28-pwsh3.dts for
+	 * the full rationale.
+	 */
+	dr_mode = "otg";
+	usb-role-switch;
+};
